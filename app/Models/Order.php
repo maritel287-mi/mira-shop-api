@@ -10,24 +10,32 @@ class Order extends Model
     use HasFactory;
 
     /**
-     * Les attributs qui peuvent être remplis via l'API.
+     * Les attributs assignables en masse.
      */
     protected $fillable = [
+        'user_id',
         'product_id',
-        'client_name',
-        'phone',
         'quantity',
-        'address',
-        'notes',
-        'total_amount',
+        'total_price',
         'status',
+        'customer_name',
+        'customer_phone',
+        'customer_address',
     ];
 
     /**
-     * Relation : Une commande appartient à un produit/service.
+     * Relation avec le produit commandé.
      */
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Relation avec l'utilisateur (si applicable).
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
